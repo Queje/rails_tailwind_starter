@@ -11,9 +11,18 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+  <body class="ml-14 mr-14">
+      <nav class="flex justify-between mt-7">
+        <div class="hover:underline">
+          <%= link_to "Home", root_path %>
+        </div>
+        <div class="bg-blue-500 rounded hover:bg-blue-700 text-white px-3">
+          <%= link_to "new post!", new_idea_path%>
+        </div>
+      </nav>
+      <main class="container mt-7 px-5">
+        <br>
+        <%= yield %>
+      </main>
   </body>
 </html>
