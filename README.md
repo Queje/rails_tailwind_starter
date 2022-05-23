@@ -10,6 +10,9 @@ tests:
 model validation tests with rspec and database_cleaner
 
 run the following script to be sure that testing is done in dev mode only:
+
 ```console
+
 RAILS_ENV=test bundle exec rake spec
+
 ```
