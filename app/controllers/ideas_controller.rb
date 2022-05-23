@@ -1,6 +1,7 @@
 class IdeasController < ApplicationController
     before_action :find_idea_id, only: %i[show edit update destroy]
     before_action :authenticate_user!, only: %i[new create edit update destroy]
+    before_action :is_author?, only: %i[edit update destroy]
 
     def index
         @ideas = Idea.all
@@ -16,6 +17,7 @@ class IdeasController < ApplicationController
     
     def create
         @idea = Idea.new(ideas_params)
+        @idea.user_id = current_user.id
 
         if @idea.save
             redirect_to root_path
@@ -50,7 +52,14 @@ class IdeasController < ApplicationController
         @idea = Idea.find(params[:id])
     end
 
+    def is_author?
+        unless @idea.user_id == current_user.id
+            flash[:alert] = 'Access denied as you are not author of this post'
+            redirect_to root_path, status: :unprocessable_entity
+        end
+    end
+
     def ideas_params
-        params.require(:idea).permit(:name, :description, :picture)
+        params.require(:idea).permit(:name, :description, :picture, :user_id)
     end
 end
