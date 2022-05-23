@@ -25,14 +25,14 @@
             <%= current_user.email %>
           </strong>
         </div>
-        <div>
-          <%= link_to 'Edit profile', edit_user_registration_path,  :class => 'hover:underline' %> |
-          <%= button_to "Logout", destroy_user_session_path, method: :delete,  :class => 'hover:underline'  %>
+        <div class="flex">
+          <%= link_to 'Profile', edit_user_registration_path,  :class => 'hover:underline mr-1' %> |
+          <%= button_to "Logout", destroy_user_session_path, method: :delete,  :class => 'hover:underline ml-1'  %>
         </div>
       <% else %>
-        <div>
-          <%= link_to "Sign up", new_user_registration_path,  :class => 'hover:underline' %> |
-          <%= link_to "Login", new_user_session_path, :class => 'hover:underline'  %>
+        <div class="flex">
+          <%= link_to "Sign up", new_user_registration_path,  :class => 'hover:underline mr-1' %> |
+          <%= link_to "Login", new_user_session_path, :class => 'hover:underline ml-1' %>
         </div>
       <% end %>
     </nav>

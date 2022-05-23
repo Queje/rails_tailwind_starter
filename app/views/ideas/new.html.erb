@@ -2,6 +2,16 @@
 
 <%= form_with model: @idea do |form| %>
   <div>
+    <%= form.label :picture %><br>
+    <%= form.file_field :picture %>
+    <% @idea.errors.full_messages_for(:picture).each do |message| %>
+        <div class="bg-red-400 rounded w-40 text-center">
+            <%= message %>
+        </div>
+    <% end %>
+  </div>
+
+  <div>
     <%= form.label :name %><br>
     <%= form.text_field :name %>
     <% @idea.errors.full_messages_for(:name).each do |message| %>
@@ -15,16 +25,6 @@
     <%= form.label :description %><br>
     <%= form.text_area :description %>
     <% @idea.errors.full_messages_for(:description).each do |message| %>
-        <div class="bg-red-400 rounded w-40 text-center">
-            <%= message %>
-        </div>
-    <% end %>
-  </div>
-
-  <div>
-    <%= form.label :picture %><br>
-    <%= form.text_area :picture %>
-    <% @idea.errors.full_messages_for(:picture).each do |message| %>
         <div class="bg-red-400 rounded w-40 text-center">
             <%= message %>
         </div>

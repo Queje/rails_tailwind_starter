@@ -9,7 +9,7 @@
 <br>
 <p>with a picture:</p>
 <p>
-    <%= @idea.picture %>
+    <%= image_tag(@idea.picture_url, width: 50) if @idea.picture.present? %>
 </p>
 <br>
 <div class="flex justify-between">
@@ -20,4 +20,42 @@
         <%= button_to "Delete post", idea_path(@idea.id), method: :delete %>
     </div>
 </div>
+<br>
+<h3>Comments</h3>
+<% @comments.each do |comment| %>
+  <div>
+    <strong><%= comment.user_name %></strong>
+    <br>
+    <p><%= comment.body %></p>
+    <div class="bg-red-500 hover:bg-red-700 text-white rounded w-40 text-center">
+        <%= button_to 'Delete Comment', comment_path(comment.id), method: :delete %>
+    </div>
+  </div>
+<% end %>
+<br>
+<%= form_with model: @comment do |form| %>
+    
+    <%= form.hidden_field :idea_id %>
 
+    <div>
+        <%= form.label :user_name %><br>
+        <%= form.text_field :user_name %>
+        <% @idea.errors.full_messages_for(:user_name).each do |message| %>
+            <div class="bg-red-400 rounded w-40 text-center">
+                <%= message %>
+            </div>
+        <% end %>
+    </div>
+    <div>
+        <%= form.label :body %><br>
+        <%= form.text_area :body %>
+        <% @idea.errors.full_messages_for(:body).each do |message| %>
+            <div class="bg-red-400 rounded w-40 text-center">
+                <%= message %>
+            </div>
+        <% end %>
+    </div>
+    <div class="bg-green-500 hover:bg-green-700 text-white w-40 rounded px-3 text-center">
+        <%= form.submit %>
+    </div>
+<%end%>

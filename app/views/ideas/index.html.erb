@@ -5,18 +5,18 @@
 <ul class="mt-10">
     <% if @ideas %>
         <% @ideas.each do |idea| %>
-            <li class="flex justify-between bg-gray-400 rounded ml-5 pl-3">
+            <li class="flex justify-between bg-gray-400 rounded ml-5">
                 <div>
+                    <%= image_tag(idea.picture_url,  width: 50) if idea.picture.present? %>
+                </div>
+                <div class="my-5">  
                     <%= idea.name %>  
                 </div>
-                <div>
+                <div class="my-5">
                     <%= idea.description%>  
                 </div>
-                <div>
-                    <%= idea.picture%>
-                </div>
-                <div class="bg-blue-500 hover:bg-blue-700 text-white rounded px-3 w-40 text-center">
-                    <%= link_to "see this post!", idea_path(idea.id)%>
+                <div class="bg-blue-500 hover:bg-blue-700 text-white rounded px-3 w-40 text-center py-5">
+                    <%= link_to "see this post!", idea_path(idea.id) %>
                 </div>
             </li>
             <br>
