@@ -19,7 +19,34 @@
         <div class="bg-blue-500 rounded hover:bg-blue-700 text-white px-3">
           <%= link_to "new post!", new_idea_path%>
         </div>
+        <% if user_signed_in? %>
+          <div>
+            Logged in as <strong><%= current_user.email %></strong>.
+          </div>
+          <div>
+            <%= link_to 'Edit profile', edit_user_registration_path,  :class => 'hover:underline' %> |
+            <%= button_to "Logout", destroy_user_session_path, method: :delete,  :class => 'hover:underline'  %>
+          </div>
+        <% else %>
+          <div>
+            <%= link_to "Sign up", new_user_registration_path,  :class => 'hover:underline' %> |
+            <%= link_to "Login", new_user_session_path, :class => 'hover:underline'  %>
+          </div>
+        <% end %>
       </nav>
+
+      <% if notice %>
+        <div class="notice bg-green-500 rounded text-white text-center px-3 w-80 mt-7">
+          <%= notice %>
+        </div>
+      <% end %>
+
+      <% if alert %>
+        <div class="alert bg-red-500 rounded text-white text-center px-3 w-80 mt-7">
+          <%= alert %>
+        </div>
+      <% end %>
+
       <main class="container mt-7 px-5">
         <br>
         <%= yield %>

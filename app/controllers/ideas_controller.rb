@@ -1,5 +1,6 @@
 class IdeasController < ApplicationController
     before_action :find_idea_id, only: %i[show edit update destroy]
+    before_action :authenticate_user!, only: %i[new create edit update destroy]
 
     def index
         @ideas = Idea.all
