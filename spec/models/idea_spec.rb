@@ -5,7 +5,6 @@ RSpec.describe Idea, type: :model do
     before(:each) do   
         @user = FactoryBot.create(:user) 
         @picture = Rack::Test::UploadedFile.new(Rails.root.join('/home/jeremy/Images/Batman_logo.png'), 'Batman_logo.png')
-        
         @idea = FactoryBot.create(:idea, picture: @picture, user_id: @user.id )
     end
 
