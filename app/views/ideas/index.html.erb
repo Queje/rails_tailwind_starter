@@ -1,11 +1,11 @@
-<h1 class="text-3xl font-bold underline text-gray-500">
+<h1 class="text-3xl font-bold underline text-gray-400">
     Welcome to the Posts!
 </h1>
 <p>read everthing people are talking about...</p>
 <ul class="mt-10">
     <% if @ideas %>
         <% @ideas.each do |idea| %>
-            <li class="flex justify-between bg-gray-400 rounded ml-5">
+            <li class="flex justify-between bg-gray-600 rounded ml-5">
                 <div>
                     <%= image_tag(idea.picture_url(:thumb), class: 'object-cover h-25 w-15') if idea.picture.present? %>
                 </div>

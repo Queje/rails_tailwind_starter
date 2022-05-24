@@ -11,26 +11,24 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="ml-14 mr-14">
+  <body class="ml-14 mr-14 dark:bg-slate-800">
     <nav class="flex justify-between mt-7">
-      <div class="hover:underline">
+      <div class="hover:underline text-white">
         <%= link_to "Home", root_path %>
       </div>
       <div class="bg-blue-500 rounded hover:bg-blue-700 text-white px-3">
         <%= link_to "new post!", new_idea_path%>
       </div>
       <% if user_signed_in? %>
-        <div>
-          <strong>
-            <%= current_user.email %>
-          </strong>
+        <div class="text-white font-bold">
+          <%= current_user.email %>
         </div>
-        <div class="flex">
+        <div class="flex text-white">
           <%= link_to 'Profile', edit_user_registration_path,  :class => 'hover:underline mr-1' %> |
           <%= button_to "Logout", destroy_user_session_path, method: :delete,  :class => 'hover:underline ml-1'  %>
         </div>
       <% else %>
-        <div class="flex">
+        <div class="flex text-white">
           <%= link_to "Sign up", new_user_registration_path,  :class => 'hover:underline mr-1' %> |
           <%= link_to "Login", new_user_session_path, :class => 'hover:underline ml-1' %>
         </div>
@@ -49,7 +47,7 @@
       </div>
     <% end %>
 
-    <main class="container mt-7 px-5">
+    <main class="container mt-7 px-5 text-white">
       <br>
       <%= yield %>
     </main>
