@@ -1,52 +1,38 @@
 require 'rails_helper'
 
-RSpec.describe Idea do
-    # Comments: testing model validations methods
-    subject { Idea.new } 
+RSpec.describe Idea, type: :model do
 
-    it "is not valid without a name, description and picture" do
-        expect(subject).not_to be_valid
-    end  
-
-    it "is not valid if it has just a name" do
-        subject.name = "Johnny"
-        expect(subject).not_to be_valid
+    before(:each) do   
+        @user = FactoryBot.create(:user) 
+        @picture = Rack::Test::UploadedFile.new(Rails.root.join('/home/jeremy/Images/Batman_logo.png'), 'Batman_logo.png')
+        
+        @idea = FactoryBot.create(:idea, picture: @picture, user_id: @user.id )
     end
 
-    it "is not valid if it has just a description" do
-        subject.description = "Johnny is a good testor"
-        expect(subject).not_to be_valid
+    it "has a valid idea factory" do
+        expect(@idea).to be_valid
     end
 
-    it "is not valid if it has just a picture" do
-        subject.picture = "picture of Johnny"
-        expect(subject).not_to be_valid
+    context "validation of the idea model" do
+
+        subject { @idea } 
+
+        describe "validate the with all atributes" do
+            it { should validate_presence_of(:name) }
+            it { should validate_presence_of(:description) }
+            it { should validate_presence_of(:picture) }
+        end
+
+        describe "when the description is to long or to short" do
+            it { should_not allow_value(@idea.description = "f"*9).for(:description) }
+            it { should_not allow_value(@idea.description = "f"*101).for(:description) }
+        end
     end
 
-    it "is not valid if description is less then 10 letters" do
-        subject.name = "Johnny"
-        subject.description = "J" * 9
-        subject.picture = "picture of Johnny"
-        expect(subject).not_to be_valid
-    end
-
-    it "is not valid if description is more then 100 letters" do
-        subject.name = "Johnny"
-        subject.description = "J" * 101
-        subject.picture = "urltest"
-        expect(subject).not_to be_valid
-    end
-
-    it "is valid if it has a name, a description that has more then 10 letters and less then 100, and a picture" do
-        subject.name = "Johnny"
-        subject.description = "Johnny is a good testor"
-        subject.picture = "urltest"
-        expect(subject).to be_valid
-    end
-
-    it "can replace a first data by a second one" do
-        idea = Idea.create!(name: "My Awesome Idea Name", description: "Johnny is a good testor", picture:"urltest")  
-        second_idea = Idea.create!(name: "My Second Idea Name") 
-        expect(second_idea.name).to eq("My Second Idea Name") 
+    context "associations" do
+        describe "belong to a user and had many comments" do
+            it { should belong_to(:user) } 
+            it { should have_many(:comments)}        
+        end
     end
 end
