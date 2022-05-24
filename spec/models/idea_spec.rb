@@ -33,14 +33,20 @@ RSpec.describe Idea do
     it "is not valid if description is more then 100 letters" do
         subject.name = "Johnny"
         subject.description = "J" * 101
-        subject.picture = "picture of Johnny"
+        subject.picture = "urltest"
         expect(subject).not_to be_valid
     end
 
     it "is valid if it has a name, a description that has more then 10 letters and less then 100, and a picture" do
         subject.name = "Johnny"
         subject.description = "Johnny is a good testor"
-        subject.picture = "picture of Johnny"
+        subject.picture = "urltest"
         expect(subject).to be_valid
+    end
+
+    it "can replace a first data by a second one" do
+        idea = Idea.create!(name: "My Awesome Idea Name", description: "Johnny is a good testor", picture:"urltest")  
+        second_idea = Idea.create!(name: "My Second Idea Name") 
+        expect(second_idea.name).to eq("My Second Idea Name") 
     end
 end

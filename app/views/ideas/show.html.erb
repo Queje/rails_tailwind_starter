@@ -9,7 +9,7 @@
 <br>
 <p>with a picture:</p>
 <p>
-    <%= image_tag(@idea.picture_url, width: 50) if @idea.picture.present? %>
+    <%= image_tag @idea.picture_url(:thumb) if @idea.picture.present? %>
 </p>
 <br>
 <div class="flex justify-between">
